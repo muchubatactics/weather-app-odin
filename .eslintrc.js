@@ -23,5 +23,6 @@ module.exports = {
   },
   'rules': {
     'no-console': 'off',
+    'require-jsdoc': 'off',
   },
 };
