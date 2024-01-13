@@ -4,7 +4,8 @@ body {
   height: 100vh;
   margin: 0px;
   padding: 0px;
-  background-image: url(../assets/jonathan-mabey-73B079lOviY-unsplash.jpg)
+  background-image: url(../assets/jonathan-mabey-73B079lOviY-unsplash.jpg);
+  font-family: 'Poppins', sans-serif;
 }
 
 .container {
@@ -15,6 +16,52 @@ body {
 
 .major-cur {
   grid-area: 1 / 1 / 5 / 2;
+  padding: 1em;
+  display: grid;
+  grid-template-columns: 47px 47px 47px 47px 47px 20px 1fr 47px 47px 1fr;
+  grid-template-rows: repeat(10, 35px);
+}
+
+.major-cur > .now {
+  grid-area: 4 / 2 / 5 / 4;
+  font-weight: 400;
+  font-size: 1.5em;
+}
+
+.major-cur > .temp-cur {
+  grid-area: 5 / 2 / 8 / 6;
+  font-size: 7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.major-cur > .icon {
+  grid-area: 7 / 5 / 9 / 7;
+  background-image: url(https://cdn.weatherapi.com/weather/64x64/night/116.png);
+  background-repeat: no-repeat;
+} 
+
+.major-cur > .cur-description {
+  grid-area: 5 / 7 / 6 / 10;
+  font-weight: 500;
+  font-size: 1.5rem;
+  justify-self: end;
+  align-self: self-end;
+}
+
+.major-cur > .feels-like {
+  grid-area: 6 / 7 / 7 / 10;
+  font-weight: 400;
+  font-size: 1em;
+  justify-self: end;
+  align-self: self-start;
+}
+
+.major-cur > .high-low-temp {
+  grid-area: 8 / 2 / 9 / 6;
+  font-weight: 400;
+  font-size: 1em;
 }
 
 .search {
@@ -25,7 +72,7 @@ body {
 .search > form > label > span {
   display: grid;
   grid-template-columns: 1fr 15fr 1fr;
-  background-color: rgb(202, 202, 202);
+  background-color: white;
   height: 4em;
   border-radius: 50px;
   align-items: center;
@@ -45,7 +92,7 @@ body {
 }
 
 .search input {
-  background-color: rgb(202, 202, 202);
+  background-color: white;
   outline: none;
   border: 0px;
   height: 60%;
