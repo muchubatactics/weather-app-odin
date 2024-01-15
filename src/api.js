@@ -22,7 +22,8 @@ const apiStuff = function() {
       }
       return response.json();
     }).then(function(data) {
-      console.log(processStuff.getDataObj(data));
+      console.log(data);
+      return processStuff.getDataObj(data);
     }).catch(function(err) {
       console.log(err);
     });

@@ -40,7 +40,7 @@ body {
 }
 
 .major-cur > .icon {
-  grid-area: 7 / 5 / 9 / 7;
+  grid-area: 7 / 6 / 9 / 8;
   background-image: url(https://cdn.weatherapi.com/weather/64x64/night/116.png);
   background-repeat: no-repeat;
 } 
@@ -73,7 +73,7 @@ body {
   background-color: rgb(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
   border-radius: 10px;
-  display: grid;
+  display: none;
   grid-template-columns: 2fr 9fr;
   height: 50px;
 }
@@ -150,7 +150,7 @@ body {
 .conditions-cur {
   grid-area: 4 / 1 / 5 / 2;
   display: grid;
-  grid-template-columns: repeat(10, minmax(45px, 1fr));
+  grid-template-columns: repeat(10, minmax(50px, 1fr));
   grid-template-rows: repeat(9, 40px) 1fr;
 }
 
