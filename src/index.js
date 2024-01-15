@@ -33,7 +33,7 @@ const fillStuff = (function() {
   const uvDes = document.querySelector('.conditions-cur > .uvIndex > .info');
 
   function fillConditions(obj) {
-    windValue.innerHTML = `${obj.current.wind_kph} <span class="unit">km/h</span>`;
+    windValue.innerHTML = `${obj.current.wind_kph}<span class="unit">km/h</span>`;
     let windDirection = '';
     let windDescription = '';
     switch (obj.current.wind_direction) {
@@ -133,10 +133,48 @@ const fillStuff = (function() {
     fillConditions(obj);
     fillMain(obj);
     fillSunriseSet(obj);
+    fillHourForecast(obj);
+  }
+
+  const hourlyForecastDiv = document.querySelector('.hourly-forecast > .main');
+
+  function fillHourForecast(obj) {
+    hourlyForecastDiv.innerHTML = '';
+    const x = Number(obj.current.time.slice(10, -3));
+    for (let i = x; i < 24; ++i) {
+      const div = document.createElement('div');
+      div.classList.add('hour');
+
+      const timeSpan = document.createElement('span');
+      timeSpan.classList.add('time');
+      if (i == x) {
+        timeSpan.innerHTML = 'Now';
+      } else {
+        if (i < 9) {
+          timeSpan.innerHTML = `0${i}:00`;
+        } else {
+          timeSpan.innerHTML = `${i}:00`;
+        }
+      }
+      const iconDiv = document.createElement('div');
+      iconDiv.classList.add('icon');
+      iconDiv.style = `background-image: url(https:${obj.forecast[0].hourly[i].icon}`;
+
+      const tempSpan = document.createElement('span');
+      tempSpan.classList.add('temp');
+      tempSpan.innerHTML = `${obj.forecast[0].hourly[i].temp_c}&deg;`;
+
+      div.appendChild(tempSpan);
+      div.appendChild(iconDiv);
+      div.appendChild(timeSpan);
+
+      hourlyForecastDiv.appendChild(div);
+    }
   }
 
 
   return {
+    fillHourForecast,
     fillMain,
     fillConditions,
     fillSunriseSet,

@@ -428,12 +428,14 @@ body {
 .hourly-forecast > .main > .hour > .temp {
   font-size: 2rem;
   align-self: self-end;
+  text-align: center;
 }
 
 .hourly-forecast > .main > .hour > .icon {
   background-image: url(https://cdn.weatherapi.com/weather/64x64/night/116.png);
   background-repeat: no-repeat;
   background-position: center;
+  width: 80px;
 }
 
 .hourly-forecast > .main > .hour > .time {

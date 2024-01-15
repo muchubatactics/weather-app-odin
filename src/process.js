@@ -2,6 +2,7 @@ const processStuff = function() {
   function getDataObj(data) {
     return {
       current: {
+        time: data.current.last_updated,
         text: data.current.condition.text,
         icon: data.current.condition.icon,
         temp_c: data.current.temp_c,
