@@ -394,7 +394,76 @@ body {
   border-radius: 20px;
   height: 95%;
   width: 99%;
+  display: grid;
+  grid-template-rows: 1fr 7fr;
+  row-gap: 10px;
+  padding: 10px;
+  box-sizing: border-box;
 }
+
+.hourly-forecast > .heading {
+  font-size: 1.2em;
+  padding-left: 5px;
+}
+
+.hourly-forecast > .main {
+  display: grid;
+  grid-template-columns: 100px;
+  grid-auto-columns: 100px;
+  column-gap: 10px;
+  overflow-x: scroll;
+  grid-auto-flow: column;
+  overflow-y: hidden;
+}
+
+.hourly-forecast > .main > .hour {
+  display: grid;
+  grid-template-rows: 1fr 2fr 1fr;
+  justify-content: center;
+  background-color: rgb(255, 255, 255, 0.3);
+  border-radius: 10px;
+  height: 90%;
+}
+
+.hourly-forecast > .main > .hour > .temp {
+  font-size: 2rem;
+  align-self: self-end;
+}
+
+.hourly-forecast > .main > .hour > .icon {
+  background-image: url(https://cdn.weatherapi.com/weather/64x64/night/116.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.hourly-forecast > .main > .hour > .time {
+  text-align: center;
+}
+
+
+
+
+/* scrollbar  */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color:rgb(80, 80, 80, 0.4) rgb(256, 256, 256, 0.2);
+}
+
+*::-webkit-scrollbar {
+  height: 5px;
+}
+    
+*::-webkit-scrollbar-track {
+  background: rgb(256, 256, 256, 0.2);
+}
+  
+*::-webkit-scrollbar-thumb {
+  background-color: rgb(80, 80, 80, 0.4);
+}
+
+/* scrollbar  */
+
 
 .forecast {
   grid-area: 4 / 2 / 6 / 3;
@@ -403,7 +472,100 @@ body {
   backdrop-filter: blur(10px);
   border-radius: 20px;
   width: 99%;
+  padding: 10px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: 0.5fr 3fr 3fr 3fr;
+  row-gap: 10px;
 }
+
+.forecast > .heading {
+  font-size: 1.2rem;
+  padding-left: 5px;
+}
+
+.forecast > .day {
+  background-color: rgb(255, 255, 255, 0.3);
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: repeat(10, minmax(95px, 1fr));
+  grid-template-rows: repeat(5, 30px);
+  padding: 0px 10px;
+  box-sizing: border-box;
+}
+
+.forecast > .day > .date {
+  font-size: 1em;
+  font-weight: 300;
+  grid-area: 1 / 1 / 2 / 3;
+  align-self: self-end;
+}
+
+.forecast > .day > .high-low-temp {
+  grid-area: 2 / 1 / 4 / 3;
+  font-weight: 600;
+  font-size: 3em;
+  height: 90%;
+}
+
+.forecast > .day > .high-low-temp .slash {
+  font-size: 0.8em;
+}
+
+.forecast > .day > .high-low-temp .low {
+  color: grey;
+}
+
+.forecast > .day > .description {
+  grid-area: 4 / 1 / 6 / 2;
+}
+
+.forecast > .day > .icon {
+  grid-area: 4 / 2 / 6 / 3;
+  background-image: url(https://cdn.weatherapi.com/weather/64x64/night/116.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.forecast > .day > .maxwind {
+  grid-area: 2 / 3 / 6 / 5;
+}
+
+.forecast > .day > .avhumid {
+  grid-area: 2 / 5 / 6 / 7;
+}
+
+.forecast > .day > .maxindex {
+  grid-area: 2 / 7 / 6 / 9;
+}
+
+.forecast > .day > .sunrise-set {
+  grid-area: 2 / 9 / 6 / 11;
+
+}
+
+.forecast > .day > div > .head {
+  font-weight: 500;
+  font-size: 1.1em;
+}
+
+.forecast > .day > div .value {
+  font-size: 1.5em;
+}
+
+.forecast > .day > div .units {
+  font-size: 0.6em;
+}
+
+.forecast > .day > .sunrise-set .small-title {
+  font-size: 0.6em;
+}
+
+
+
+
+
+
 
 .rain:hover, .wind:hover, .humidity:hover, .pressure:hover, .uvIndex:hover, .sunrise-set-cur > div:hover{
   box-shadow: 0px 0px 5px 5px rgb(255, 255, 255, 0.2);
