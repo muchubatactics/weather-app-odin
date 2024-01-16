@@ -2,7 +2,7 @@ import processStuff from './process.js';
 
 const apiStuff = function() {
   const ky = 'a21a520a8ece4a8bb1c73708241101';
-  const base = 'http://api.weatherapi.com/v1';
+  const base = 'https://api.weatherapi.com/v1';
 
   // not necessary, wrote it because I can!!
   async function getCurrentWeather(location) {
