@@ -192,6 +192,18 @@ const fillStuff = (function() {
         day = 'three';
       }
 
+      let date = '';
+      if (i == 0) date = 'Today';
+      else {
+        const temp = new Date(obj.forecast[i].date);
+        // eslint-disable-next-line max-len
+        date = `${['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][temp.getDay()]}, ${['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][temp.getMonth()]}
+         ${temp.getDate()}
+        `;
+      }
+
+      document.querySelector(`.forecast > .${day} >.date`).innerHTML = date;
+
       document.querySelector(`.forecast > .${day} > .high-low-temp`).innerHTML = `
       ${obj.forecast[i].maxTemp_c}&deg;<span class="low"><span class="slash">/</span>${obj.forecast[i].minTemp_c}&deg;</span>
       `;
