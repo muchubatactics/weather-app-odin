@@ -4,10 +4,11 @@ body {
   height: 100vh;
   margin: 0px;
   padding: 0px;
-  background-image: url(../assets/frank-mckenna-OD9EOzfSOh0-unsplash.jpg);
+  background-image: url(../assets/back1.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   font-family: 'Poppins', sans-serif;
+  user-select: none;
 }
 
 .container {
@@ -490,7 +491,7 @@ body {
   background-color: rgb(255, 255, 255, 0.3);
   border-radius: 10px;
   display: grid;
-  grid-template-columns: repeat(10, minmax(95px, 1fr));
+  grid-template-columns: minmax(125px, 1fr) minmax(125px, 1fr) repeat(8, minmax(85px, 1fr));
   grid-template-rows: repeat(5, 30px);
   padding: 0px 10px;
   box-sizing: border-box;
@@ -569,6 +570,6 @@ body {
 
 
 
-.rain:hover, .wind:hover, .humidity:hover, .pressure:hover, .uvIndex:hover, .sunrise-set-cur > div:hover{
+.rain:hover, .wind:hover, .humidity:hover, .pressure:hover, .uvIndex:hover, .sunrise-set-cur > div:hover {
   box-shadow: 0px 0px 5px 5px rgb(255, 255, 255, 0.2);
 }

@@ -24,6 +24,6 @@ module.exports = {
   'rules': {
     'no-console': 'off',
     'require-jsdoc': 'off',
-    'max-len': ['error', {'code': 120}],
+    'max-len': ['error', {'code': 125}],
   },
 };

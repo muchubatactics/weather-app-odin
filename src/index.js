@@ -32,11 +32,10 @@ const fillStuff = (function() {
   const uvValue = document.querySelector('.conditions-cur > .uvIndex > .value');
   const uvDes = document.querySelector('.conditions-cur > .uvIndex > .info');
 
-  function fillConditions(obj) {
-    windValue.innerHTML = `${obj.current.wind_kph}<span class="unit">km/h</span>`;
+  function describeWind(direction, speed) {
     let windDirection = '';
     let windDescription = '';
-    switch (obj.current.wind_direction) {
+    switch (direction) {
       case 'N':
         windDirection = 'North';
         break;
@@ -88,17 +87,24 @@ const fillStuff = (function() {
       default:
         break;
     };
-    if (Number(obj.current.wind_kph) < 11) {
+    if (Number(speed) < 11) {
       windDescription = 'Light';
-    } else if (Number(obj.current.wind_kph) < 19) {
+    } else if (Number(speed) < 19) {
       windDescription = 'Gentle';
-    } else if (Number(obj.current.wind_kph) < 28) {
+    } else if (Number(speed) < 28) {
       windDescription = 'Moderate';
-    } else if (Number(obj.current.wind_kph) < 49) {
+    } else if (Number(speed) < 49) {
       windDescription = 'Strong';
     } else {
       windDescription = 'Storm';
     }
+
+    return {windDirection, windDescription};
+  }
+
+  function fillConditions(obj) {
+    windValue.innerHTML = `${obj.current.wind_kph}<span class="unit">km/h</span>`;
+    const {windDirection, windDescription} = describeWind(obj.current.wind_direction, obj.current.wind_kph);
     windDes.innerHTML = `${windDescription} &#x2022; From ${windDirection}`;
     humidValue.innerHTML = `${obj.current.humidity} <span class="unit">%`;
     humidDes.innerHTML = 'Nice! you found the easter egg!';
@@ -119,7 +125,6 @@ const fillStuff = (function() {
   const sunsetTime = document.querySelector('.sunrise-set-cur > div > .time2');
 
   function fillSunriseSet(obj) {
-    console.log(obj.forecast[0].sunrise, obj.forecast[0].sunset);
     sunriseTime.innerHTML = `${obj.forecast[0].sunrise} <span class="units">AM</span>`;
     sunsetTime.innerHTML = `${obj.forecast[0].sunset} <span class="units">PM</span>`;
   }
@@ -128,12 +133,16 @@ const fillStuff = (function() {
     formInput.placeholder = obj.location.name;
   }
 
+  /*
+  * called fill left but it actually fills everything
+  */
   function fillLeft(obj) {
     fillPlaceHolder(obj);
     fillConditions(obj);
     fillMain(obj);
     fillSunriseSet(obj);
     fillHourForecast(obj);
+    fillForecast(obj);
   }
 
   const hourlyForecastDiv = document.querySelector('.hourly-forecast > .main');
@@ -172,8 +181,57 @@ const fillStuff = (function() {
     }
   }
 
+  function fillForecast(obj) {
+    for (let i = 0; i < 3; i++) {
+      let day = '';
+      if (i == 0) {
+        day = 'one';
+      } else if (i == 1) {
+        day = 'two';
+      } else {
+        day = 'three';
+      }
+
+      document.querySelector(`.forecast > .${day} > .high-low-temp`).innerHTML = `
+      ${obj.forecast[i].maxTemp_c}&deg;<span class="low"><span class="slash">/</span>${obj.forecast[i].minTemp_c}&deg;</span>
+      `;
+      document.querySelector(`.forecast > .${day} > .icon`).style = `
+      background-image: url(https:${obj.forecast[i].icon});
+      `;
+      document.querySelector(`.forecast > .${day} > .description`).innerHTML = obj.forecast[i].text;
+
+      const w = describeWind('N', obj.forecast[i].maxwind_kph);
+      document.querySelector(`.forecast > .${day} > .maxwind .value`).innerHTML = `
+      ${obj.forecast[i].maxwind_kph}<span class="units">km/hr</span>
+      `;
+      document.querySelector(`.forecast > .${day} > .maxwind .description`).innerHTML = w.windDescription;
+
+      document.querySelector(`.forecast > .${day} > .avhumid .value`).innerHTML = `
+      ${obj.forecast[i].averageHumidity}<span class="units">%</span>
+      `;
+
+      document.querySelector(`.forecast > .${day} > .maxindex .value`).innerHTML = obj.forecast[i].UVIndex;
+      let uvDescription = '';
+      if (obj.forecast[i].UVIndex < 3) {
+        uvDescription = 'Low';
+      } else if (obj.forecast[i].UVIndex < 9) {
+        uvDescription = 'Medium';
+      } else {
+        uvDescription = 'Extreme';
+      }
+      document.querySelector(`.forecast > .${day} > .maxindex .description`).innerHTML = uvDescription;
+
+      document.querySelector(`.forecast > .${day} > .sunrise-set .rise`).innerHTML = `
+      ${obj.forecast[i].sunrise} <span class="units">AM</span> <span class="small-title">&#x2022; Sunrise</span>
+      `;
+      document.querySelector(`.forecast > .${day} > .sunrise-set .set`).innerHTML = `
+      ${obj.forecast[i].sunset} <span class="units">PM</span> <span class="small-title">&#x2022; Sunset</span>
+      `;
+    }
+  }
 
   return {
+    fillForecast,
     fillHourForecast,
     fillMain,
     fillConditions,
@@ -189,8 +247,25 @@ form.addEventListener('submit', function(event) {
   event.preventDefault();
   formInput.placeholder = 'Loading'; // hack fix
   apiStuff.getForecastWeather(formInput.value.trim()).then(function(data) {
-    console.log(data);
     fillStuff.fillLeft(data);
   });
   form.reset();
 });
+
+document.getElementById('search-svg').onclick = function(event) {
+  if (formInput.value) {
+    event.preventDefault();
+    formInput.placeholder = 'Loading'; // hack fix
+    apiStuff.getForecastWeather(formInput.value.trim()).then(function(data) {
+      fillStuff.fillLeft(data);
+    });
+    form.reset();
+  }
+};
+
+window.onload = function() {
+  formInput.placeholder = 'Loading'; // hack fix
+  apiStuff.getForecastWeather('Kampala').then(function(data) {
+    fillStuff.fillLeft(data);
+  });
+};
