@@ -260,6 +260,9 @@ form.addEventListener('submit', function(event) {
   formInput.placeholder = 'Loading'; // hack fix
   apiStuff.getForecastWeather(formInput.value.trim()).then(function(data) {
     fillStuff.fillLeft(data);
+  }).catch(function(err) {
+    formInput.placeholder = 'Check your Internet and enter valid location';
+    console.log(err);
   });
   form.reset();
 });
@@ -270,6 +273,9 @@ document.getElementById('search-svg').onclick = function(event) {
     formInput.placeholder = 'Loading'; // hack fix
     apiStuff.getForecastWeather(formInput.value.trim()).then(function(data) {
       fillStuff.fillLeft(data);
+    }).catch(function(err) {
+      formInput.placeholder = 'Check your Internet and enter valid location';
+      console.log(err);
     });
     form.reset();
   }
